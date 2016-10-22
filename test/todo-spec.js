@@ -27,22 +27,19 @@ frisby.create('get empty list')
 	.get('http://localhost:8080/lists')
 	.expectStatus(status.notFound)
 	.expectHeaderContains('Content-Type', 'application/json')
-	.expectJSON({status: 'error', message: 'no lists found'})
+	.expectJSON({message: 'no lists found'})
 	.toss()
 
 /* in this second POST example we don't know precisely what values will be returned but we can check for the correct data types. Notice that the request body is passed as the second parameter and we need to pass a third parameter to indicate we are passing the data in json format. */
 frisby.create('add a new list')
 	.post('http://localhost:8080/lists', {'name': 'shopping', 'list': ['Cheese', 'Bread', 'Butter']}, {json: true})
 	.expectStatus(status.created)
-	.expectJSONTypes({
-		'status': String,
-		'message': String,
-		'data': {
-			'id': String,
-			'name': String,
-			'list': Array
-		}
-	}).toss()
+	.afterJSON( json => {
+		expect(json.message).toEqual('new list added')
+		expect(json.data.name).toEqual('shopping')
+		expect(json.data.list.length).toEqual(3)
+	})
+	.toss()
 
 /* Since Frisby is built on the Jasmine library we can use any of the standard matchers by enclosing them in an anonymous function passed to the 'afterJSON()' method. */
 frisby.create('check number of lists')
@@ -51,7 +48,6 @@ frisby.create('check number of lists')
 	.afterJSON( json => {
 		// you can retrieve args using json.args.x
 		/* these are standard Jasmine matchers as covered in the first worksheet. */
-		expect(json.status).toMatch('success')
 		expect(json.message).toContain('1')
 		expect(json.data.length).toEqual(single)
 		/* We can even use the data returned to make additional API calls. Remember the JS scoping rules? */

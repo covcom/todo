@@ -17,16 +17,16 @@ let lists = []
  */
 function validateJson(json) {
 	if (json === undefined) {
-		console.log('UNDEFINED')
+		//console.log('UNDEFINED')
 		return false
 	}
 	if (typeof json.name !== 'string') {
-		console.log(`NAME NOT STRING`)
+		//console.log(`NAME NOT STRING`)
 		return false
 	}
 	/* returns false if the list key is not an Array */
 	if (!Array.isArray(json.list)) {
-		console.log('LIST NOT ARRAY')
+		//console.log('LIST NOT ARRAY')
 		return false
 	}
 	/*  */
@@ -47,19 +47,19 @@ exports.clearAll = function() {
 
 /* This public property contains a function that is passed a resource id and returns the associated list. */
 exports.getByID = function(listID) {
-	console.log('GET BY ID')
+	//console.log('GET BY ID')
 	const foundList = lists.find( function(value) {
 		return value.id === listID
 	})
 	if (foundList === undefined) {
-		console.log('NOT FOUND')
+		//console.log('NOT FOUND')
 		return {
 			status: globals.status.notFound,
 			format: globals.format.json,
 			message: 'list not found'
 		}
 	}
-	console.log('FOUND')
+	//console.log('FOUND')
 	return {
 		status: globals.status.ok,
 		format: globals.format.json,
@@ -132,7 +132,7 @@ exports.addNew = function(auth, body) {
 	const newList = {id, modified, name, list}
 	lists.push(newList)
 	const item = this.getByID(id)
-	console.log(item)
+	//console.log(item)
 	/* And return a success code. */
 	return {
 		status: globals.status.created,

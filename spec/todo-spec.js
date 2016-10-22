@@ -100,15 +100,16 @@ describe('lists', () => {
 
 	it('should add a new list', () => {
 		const res = lists.addNew(auth, shopping)
+		//console.log(JSON.stringify(res, null, globals.indent))
 		expect(res.status).toBe(globals.status.created)
 		expect(res.format).toBe(globals.format.json)
 		expect(res.message).toBe('new list added')
-		expect(res.data.id).toEqual(jasmine.any(String))
-		expect(res.data.id.length).toBe(idLen)
-		expect(res.data.modified).toEqual(jasmine.any(Date))
-		expect(res.data.name).toBe('shopping')
-		expect(res.data.list).toEqual(jasmine.any(Array))
-		expect(res.data.list.length).toBe(listLen)
+		expect(res.data.data.id).toEqual(jasmine.any(String))
+		expect(res.data.data.id.length).toBe(idLen)
+		expect(res.data.data.modified).toEqual(jasmine.any(Date))
+		expect(res.data.data.name).toBe('shopping')
+		expect(res.data.data.list).toEqual(jasmine.any(Array))
+		expect(res.data.data.list.length).toBe(listLen)
 	})
 
 	it('should return a list of lists in JSON format', () => {
@@ -124,13 +125,6 @@ describe('lists', () => {
 		expect(res.data[1].name).toBe('colours')
 	})
 
-	it('should return a list of lists in XML format', () => {
-		lists.addNew(auth, shopping)
-		lists.addNew(auth, colours)
-		const res = lists.getAllXML('localhost')
-		console.log(res)
-	})
-
 	it('should warn if no lists found', () => {
 		const res = lists.getAll('localhost')
 		expect(res.status).toBe(globals.status.notFound)
@@ -139,10 +133,12 @@ describe('lists', () => {
 
 	it('should find a valid list by its id', () => {
 		const added = lists.addNew(auth, shopping)
+		//console.log(JSON.stringify(added, null, globals.indent))
 		lists.addNew(auth, colours)
-		const res = lists.getByID(added.data.id)
+		const res = lists.getByID(added.data.data.id)
+		//console.log(JSON.stringify(res, null, globals.indent))
 		expect(res.status).toBe(globals.status.ok)
-		expect(res.data.id).toBe(added.data.id)
+		expect(res.data.id).toBe(added.data.data.id)
 		expect(res.data.name).toBe('shopping')
 		expect(res.data.list.length).toBe(listLen)
 	})
