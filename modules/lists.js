@@ -2,7 +2,6 @@
 'use strict'
 /* We import the packages needed for this module. These should be listed in the 'package.json' file and can then be imported automatically using 'npm install' */
 const rand = require('csprng')
-const builder = require('xmlbuilder')
 const globals = require('./globals')
 
 const empty = 0

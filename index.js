@@ -91,6 +91,9 @@ server.post('/lists', function(req, res) {
 		res.setHeader('Location', `/lists/${data.data.id}`)
 		res.setHeader('Last-Modified', data.data.modified.toUTCString())
 	}
+	if (data.data === undefined) {
+		res.send(data.status, {message: data.message})
+	}
 	res.send(data.status, {message: data.message, data: data.data.data})
 	res.end()
 })
