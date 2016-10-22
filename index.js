@@ -16,7 +16,8 @@ const status = {
 	'created': 201,
 	'notModified': 304,
 	'badRequest': 400,
-	'unauthorised': 401
+	'unauthorised': 401,
+	'notFound': 404
 }
 
 const mime = {
@@ -96,7 +97,7 @@ server.post('/lists', function(req, res) {
 server.put('/lists/:listID', function(req, res) {
 	res.setHeader('content-type', 'application/json')
 	res.setHeader('Allow', 'GET, POST', 'PUT', 'DELETE')
-	res.send(status[status], {status: data.status, message: 'this should update the specified resource'})
+	res.send(status[status], {status: res.data.status, message: 'this should update the specified resource'})
 	res.end()
 })
 
@@ -107,7 +108,7 @@ server.del('/lists/:listID', function(req, res) {
 	res.send(204, {status: 'ok', message: 'this should delete the specified resource'})
 	res.end()
 })
-
+console.log(`config port ${process.env.npm_package_config_port}`)
 const port = process.env.PORT || defaultPort
 server.listen(port, function(err) {
 	if (err) {
