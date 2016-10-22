@@ -31,16 +31,16 @@ const defaultPort = 8080
 
 /* if we receive a GET request for the base URL redirect to /lists */
 server.get('/', function(req, res, next) {
-	console.log('ROOT')
+	//console.log('ROOT')
 	res.redirect('/lists', next)
 })
 
 /* this route provides a URL for the 'lists' collection. It demonstrates how a single resource/collection can have multiple representations. */
 server.get('/lists', function(req, res) {
-	console.log('getting a list of all the lists')
+	//console.log('getting a list of all the lists')
 	/* we will be including URLs to link to other routes so we need the name of the host. Notice also that we are using an 'immutable variable' (constant) to store the host string since the value won't change once assigned. The 'const' keyword is new to ECMA6 and is supported in NodeJS. */
 	const host = req.headers.host
-	console.log(`host: ${host}`)
+	//console.log(`host: ${host}`)
 	/* creating some empty variables */
 	/* is the client requesting xml data? The req.header object stores any headers passed in the request. The 'Accept' header lets the client express a preference for the format of the representation. Note you should always provide a sensible default. */
 	const data = lists.getAll(host)
@@ -53,7 +53,7 @@ server.get('/lists', function(req, res) {
 
 /* This route provides a URL for each list resource. It includes a parameter (indicated by a :). The string entered here is stored in the req.params object and can be used by the script. */
 server.get('/lists/:listID', function(req, res) {
-	console.log('getting a list based on its ID')
+	//console.log('getting a list based on its ID')
 	/* Here we store the id we want to retrieve in an 'immutable variable'. */
 	const listID = req.params.listID
 	//console.log(req.headers)
@@ -75,16 +75,16 @@ server.get('/lists/:listID', function(req, res) {
 
 /* This route points to the 'lists' collection. The POST method indicates that we indend to add a new resource to the collection. Any resource added to a collection using POST should be assigned a unique id by the server. This id should be returned in the response body. */
 server.post('/lists', function(req, res) {
-	console.log('adding a new list')
+	//console.log('adding a new list')
 	/* The req object contains all the data associated with the request received from the client. The 'body' property contains the request body as a string. */
-	console.log('BODY')
-	console.log(req.body)
-	console.log(JSON.stringify(req.body, null, globals.indent))
+	//console.log('BODY')
+	//console.log(req.body)
+	//console.log(JSON.stringify(req.body, null, globals.indent))
 	/* Since we are using the authorization parser plugin we gain an additional object which contains the information from the 'Authorization' header extracted into useful information. Here we are displaying it in the console so you can understand its structure. */
 	const auth = req.authorization
 	const data = lists.addNew(auth, req.body)
-	console.log('RETURNED DATA')
-	console.log(data)
+	//console.log('RETURNED DATA')
+	//console.log(data)
 	res.setHeader('content-type', data.format)
 	res.setHeader('Allow', 'GET, POST')
 	if (data.code === globals.status.created) {
