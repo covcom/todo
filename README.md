@@ -76,7 +76,7 @@ Now the API is installed and running over HTTPS you can interact with it. Open u
 
 Once open, make sure your API is running then choose the **GET** methos, enter your secure URL and click on the **Send** button. This will send your request to the API.
 
-[an empty set of lists](.images/step01.png)
+![an empty set of lists](.images/step01.png)
 
 The response is in JSON format and is displayed under the body tab. Notice that the response code is `404 not found` because there are currently no lists.
 
@@ -94,7 +94,7 @@ To add a new list we need to POST it. Change the HTTP method from GET to POST th
 ```
 Now click on the **Send** button. This time you should get the list details back in the response including the last modified date and time plus a unique ID.
 
-[adding a new list](.images/step02.png)
+![adding a new list](.images/step02.png)
 
 If we now make a **GET** request we should see an array is returned with a single index.
 
