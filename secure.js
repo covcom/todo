@@ -102,12 +102,12 @@ server.del('/lists/:listID', function(req, res) {
 	res.end()
 })
 
-const port = process.env.PORT || defaultPort
+const port = process.env.HTTPS || defaultPort
 
 server.listen(port, err => {
 	if (err) {
 		console.error(err)
 	} else {
-		console.log(`App is ready at : ${port}`)
+		console.log(`App is ready on port : ${port}`)
 	}
 })
