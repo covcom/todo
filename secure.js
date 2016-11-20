@@ -22,7 +22,7 @@ const status = {
 	'notFound': 404
 }
 
-const defaultPort = 443
+const defaultPort = 8080
 
 const lists = []
 
