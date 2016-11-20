@@ -61,11 +61,11 @@ Running this command will generate both files in the current directory. These ne
 
 We can run this using `node secure`. Try connecting using:
 ```
-https://10.5.5.10
+https://10.5.5.10:8080
 ```
 Make sure you substitute your server's IP address. This uses the default port defined in the script however it looks for an environment variable called `HTTPS` and as a systems administrator you should never rely on default values.
 ```
-"export HTTPS=443" >> ~/.profile
+"export HTTPS=4000" >> ~/.profile
 source ~/.profile
 echo $HTTPS
 ```
